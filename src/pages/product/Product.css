@@ -1,0 +1,34 @@
+.product-item {
+    width: var(--item-width);
+    height: var(--item-height);
+    overflow: hidden;
+    transition: transform .15s;
+}
+
+.product-item:hover {
+    border-color: var(--primary-color);
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.product-item__img img {
+    width: var(--item-width);
+    height: var(--item-width);
+}
+
+.product-item__text h6 {
+    max-height: calc(var(--line-height) * 2);
+    overflow: hidden;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.corner-2 {
+    border-radius: 2px;
+}
+
+.border-normal {
+    border: 1px solid var(--border-color);
+}
