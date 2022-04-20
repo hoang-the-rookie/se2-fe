@@ -34,7 +34,7 @@ export default class Homepage extends React.Component{
         return(
             <>
                 <section className="banner_main">                   
-                    <video id="video" control loop muted >
+                    <video id="video" control autoPlay loop muted >
                         <source src={video} type="video/mp4"/>
                     </video>
 
