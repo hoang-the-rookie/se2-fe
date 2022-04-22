@@ -6,7 +6,7 @@
 .our_products {
     background-color: #fff;
     width: 29vmax;
-    height: 60vh;
+    height: 90vh;
     padding: 0 15px 15px 15px;
     transition: ease-in all 0.3s;
     margin-bottom: 30px;
@@ -21,13 +21,13 @@
 }
 
 .our_products img {
-    height: 25vh;
+    height: 50vh;
     width: 100%;
     border-bottom: #9d394a solid 2px;
 }
 
 .our_products h3 {
-    margin-top: 15px;
+    margin-top: 30px;
     font-size: 22px;
     line-height: 31px;
     color: #000;

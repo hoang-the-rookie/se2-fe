@@ -69,10 +69,10 @@ export default class Menu extends React.Component{
         if (!isLogin) {
             button = <>
                 <div className="register-btn">
-                    <Link to="" className="register-btn__control d-inline-block btn text-white fw-bold px-4">Register</Link>
+                    <Link to="/signup" className="register-btn__control d-inline-block btn text-white fw-bold px-4">Register</Link>
                 </div>
                 <div className="login-btn">
-                    <Link to="" className="login-btn__control d-inline-block btn fw-bold text-white px-4">Log In</Link>
+                    <Link to="/login" className="login-btn__control d-inline-block btn fw-bold text-white px-4">Log In</Link>
                 </div>
             </>
                 

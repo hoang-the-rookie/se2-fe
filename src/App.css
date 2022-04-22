@@ -8,12 +8,16 @@
     --background-color: #f1f1f1;
     --border-color: #ccc;
     --thin-border-color: #aaa;
+    --btn-submit: #0373fc;
+    --secondary-text: #797979;
     /* desc */
     --line-height: 1.4rem;
     --max-line: 10;
     /* size */
     --item-width: 188px;
     --item-height: 285px;
+    /* font */
+    --primary-font: 'Lato';
 }
 
 
@@ -22,9 +26,13 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
     cursor: default;
     line-height: var(--line-height);
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 
@@ -46,12 +54,14 @@ button {
 }
 
 a {
+    color: var(--primary-light-color);
     text-decoration: none;
     cursor: pointer;
 }
 
 input {
     cursor: text;
+    outline: none;
 }
 
 
@@ -63,6 +73,10 @@ input {
 
 .border-thin {
     border: .5px solid var(--thin-border-color);
+}
+
+.border-bottom-dash {
+    border-bottom: 1px dashed var(--border-color);
 }
 
 .corner-2 {
@@ -80,6 +94,20 @@ input {
 .no-outline {
     outline: none;
 }
+
+
+/* card */
+
+.content-card {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.content-card__head {
+    border-bottom: 1px solid var(--border-color);
+}
+
 
 
 /* cursor */
@@ -108,12 +136,48 @@ input {
     opacity: .88;
 }
 
+.btn-corfirm {
+    width: 50%;
+    padding: 10px 0;
+    margin-top: 32px;
+    font-weight: 600;
+}
+
 
 /* remove before */
 
 .no-before::before {
     display: none;
 }
+
+
+/* text */
+
+.external_link {
+    color: var(--secondary-text);
+}
+
+.extra_link {
+    color: var(--btn-submit);
+}
+
+.external_link:hover,
+.extra_link:hover {
+    color: var(--primary-light-color);
+}
+
+
+/* cart */
+
+.cart-item {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-item img {
+    max-width: 120px;
+    max-height: 120px;
+}
+
 
 
 /* animation */
@@ -127,4 +191,16 @@ input {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+.loading{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.login-body{
+    background-image: url("./img-background.jpg");
+    height: 50vmax;
 }
