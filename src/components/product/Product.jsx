@@ -1,20 +1,53 @@
 import './Product.css';
+import React from 'react';
+import axios from 'axios';
+import { Redirect } from 'react-router';
 
-export default function Product(product) {
+export default class Product extends React.Component {
 
-    return (
-        
-        <div className="row">
-            <div className="col-lg-3 col-md-6 col-sm-6">
-                <div id="ho_bo" className="our_products">
-                    <div className="product">
-                        <figure><img src={product.image} /></figure>
+    constructor(props) {
+        super(props);
+        this.state = {
+            isRedirect: false
+        }
+    }
+
+    handleCLick(e) {
+        axios.get(`https://be-project23421.herokuapp.com/api/product/${this.props.product.productId}`).then(res => {
+            if(res.status === 200) {
+                this.setState({isRedirect: true});
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    render() {
+        const product = this.props.product;
+        const price = Math.round(product.price*1.2);
+        const dis_price = product.price;
+        const demo = product.description.substring(0, 50)+"...";
+
+        if (this.state.isRedirect) {
+            return <Redirect to = {{ pathname: `/product/${this.props.product.productId}` }} />;
+        }
+        return (
+            
+            <div className="row" id={product.category.id} onClick={this.handleCLick.bind(this)}>
+                <div className="col-lg-3 col-md-6 col-sm-6">
+                    <div id="ho_bo" className="our_products">
+                        <div className="product" id={product.productId}>
+                            <figure><img src={product.image} /></figure>
+                        </div>
+                        <h3>{product.name}</h3>
+                        <p><del>{price.toFixed(3)} VND</del></p>
+                        <span>{dis_price.toFixed(3)} VND</span>
+                        <p>Quantity: {product.quantity}</p>
+                        <br/>
+                        <p><i>{demo}</i></p>
                     </div>
-                    <h3>{product.name}</h3>
-                    <span>{product.category}</span>
-                    <p>{product.description}</p>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }

@@ -1,15 +1,29 @@
+.row{
+    display: inline-grid;
+
+}
+
 .our_products {
+    background-color: #fff;
+    width: 29vmax;
+    height: 60vh;
     padding: 0 15px 15px 15px;
     transition: ease-in all 0.3s;
     margin-bottom: 30px;
 }
 
 #ho_bo:hover.our_products {
-    box-shadow: 0px 0px 9px rgba(255, 53, 86, 0.33);
+    box-shadow: 0px 0px 9px rgba(187, 58, 80, 0.33);
     transition: ease-in all 0.3s;
     margin-top: -10px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: rgb(241, 234, 228);
+}
+
+.our_products img {
+    height: 25vh;
+    width: 100%;
+    border-bottom: #9d394a solid 2px;
 }
 
 .our_products h3 {
@@ -33,6 +47,7 @@
     line-height: 21px;
     font-weight: 400;
     color: #000000;
+    word-wrap: break-word;
 }
 
 .product {

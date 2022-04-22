@@ -22,11 +22,8 @@ export default class Homepage extends React.Component{
             this.props.checkLogin(true);
         }
 
-        axios.get('https://be-project23421.herokuapp.com/api/products', {
-            mode: "cors"
-        }).then(res => {
+        axios.get('https://be-project23421.herokuapp.com/api/products').then(res => {
             const all_products = res.data;
-            console.log(all_products);
             this.setState({ all_products });
         }).catch(err => {
             console.log(err);
@@ -36,6 +33,7 @@ export default class Homepage extends React.Component{
 
     render(){
         const user = this.state.user;
+
         return(
             <>
                 <section className="banner_main">                   
@@ -70,7 +68,7 @@ export default class Homepage extends React.Component{
                         </div>
                         </div>
 
-                        <Product/>
+                        
                         
                     </div>
                 </div>
@@ -84,7 +82,7 @@ export default class Homepage extends React.Component{
                                 </div>
                             </div>
                         </div>
-                        <Product/>
+                        
                     </div>
                 </div>
 
@@ -122,9 +120,11 @@ export default class Homepage extends React.Component{
                             </div>
                         </div>
 
+                        <div className="item_list">
                         {this.state.all_products.map(product => (
-                            <Product product={product}/>
+                            <Product key={product.productId} product={product}/>
                         ))}
+                        </div>
 
                     </div>
                 </div>
