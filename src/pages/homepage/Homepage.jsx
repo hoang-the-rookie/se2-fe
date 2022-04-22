@@ -11,7 +11,7 @@ export default class Homepage extends React.Component{
         super(props);
         this.state = {
             user: {},
-            products: [],
+            all_products: [],
             token: null,
             visible: false
         };
@@ -22,10 +22,15 @@ export default class Homepage extends React.Component{
             this.props.checkLogin(true);
         }
 
-        axios.get('/api/products').then(res => {
-            const products = res.products;
-            this.setState({ products });
-        })
+        axios.get('https://be-project23421.herokuapp.com/api/products', {
+            mode: "cors"
+        }).then(res => {
+            const all_products = res.data;
+            console.log(all_products);
+            this.setState({ all_products });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 
 
@@ -34,7 +39,7 @@ export default class Homepage extends React.Component{
         return(
             <>
                 <section className="banner_main">                   
-                    <video id="video" control autoPlay loop muted >
+                    <video id="video" controls autoPlay loop muted >
                         <source src={video} type="video/mp4"/>
                     </video>
 
@@ -89,22 +94,22 @@ export default class Homepage extends React.Component{
                             <div className="col-md-7">
                                 <div className="titlepage" id="all_product">
                                     <h2>All Products</h2>
-                                    <div class="top_bar_menu">
-                                        <ul class="standard_dropdown top_bar_dropdown">
-                                            <li><a>Sort by:<i class="fas fa-chevron-down"/></a></li>
-                                            <li> <a href="#">Price<i class="fas fa-chevron-down"></i></a>
+                                    <div className="top_bar_menu">
+                                        <ul className="standard_dropdown top_bar_dropdown">
+                                            <li><a>Sort by:<i className="fas fa-chevron-down"/></a></li>
+                                            <li> <a href="#">Price<i className="fas fa-chevron-down"></i></a>
                                                 <ul>
                                                     <li><a href="#">Ascending</a></li>
                                                     <li><a href="#">Descending</a></li>
                                                 </ul>
                                             </li>
-                                            <li> <a href="#">Release Date<i class="fas fa-chevron-down"></i></a>
+                                            <li> <a href="#">Release Date<i className="fas fa-chevron-down"></i></a>
                                                 <ul>
                                                     <li><a href="#">Ascending</a></li>
                                                     <li><a href="#">Descending</a></li>
                                                 </ul>
                                             </li>
-                                            <li> <a href="#">Category<i class="fas fa-chevron-down"></i></a>
+                                            <li> <a href="#">Category<i className="fas fa-chevron-down"></i></a>
                                                 <ul>
                                                     <li><a href="#">EUR Euro</a></li>
                                                     <li><a href="#">GBP British Pound</a></li>
@@ -116,7 +121,11 @@ export default class Homepage extends React.Component{
                                 </div>
                             </div>
                         </div>
-                        <Product/>
+
+                        {this.state.all_products.map(product => (
+                            <Product product={product}/>
+                        ))}
+
                     </div>
                 </div>
             </>
