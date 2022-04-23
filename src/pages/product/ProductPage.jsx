@@ -14,7 +14,7 @@ export default class ProductPage extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`https://be-project23421.herokuapp.com/api/product/${this.props.match.params.id}`).then(res => {
+        axios.get(`${this.props.url}/api/product/${this.props.match.params.id}`).then(res => {
             const product = res.data;
             this.setState({product});
         }).then(() =>{

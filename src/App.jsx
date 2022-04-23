@@ -7,6 +7,8 @@ import Login from './pages/login/Login.jsx';
 import Signup from './pages/signup/Signup.jsx';
 import Profile from './pages/profile/Profile.jsx';
 import Footer from './components/footer/Footer';
+import Forgot from './pages/forgot/Forgot.jsx';
+import CategoryProduct from './pages/categoryProduct/categoryProduct.jsx';
 import './App.css';
 
 export default class App extends React.Component{
@@ -15,7 +17,8 @@ export default class App extends React.Component{
         super(props);
         this.state = {
             isLogin: false,
-            checkLogin: false
+            checkLogin: false,
+            URL: "https://be-project23421.herokuapp.com"
         }
     }
 
@@ -28,27 +31,32 @@ export default class App extends React.Component{
     }
 
     render(){
+        const url = this.state.URL;
             return<>
                 {!this.state.isLogin ?
-                    <Menu checkLogin = {this.state.checkLogin}/>
+                    <Menu checkLogin = {this.state.checkLogin} url={url}/>
                 :
                     <></>
                 }
                 <main>
                     <Switch>
                         <Route exact path="/">
-                            <HomePage checkLogin = {this.handleCallback}/>
+                            <HomePage checkLogin = {this.handleCallback} url={url}/>
                         </Route>
-                        <Route exact path="/product/:id" render={(props) => <ProductPage {...props} />} />
-                            <Route exact path="/login">
-                                <Login isLogin = {this.isLogging.bind(this)}/>                              
-                            </Route>
-                            <Route exact path="/signup">
-                                <Signup isLogin = {this.isLogging.bind(this)}/>
-                            </Route>
-                            <Route exact path="/profile">
-                                <Profile isLogin = {this.isLogging.bind(this)}/>
-                            </Route>
+                        <Route exact path="/product/:id" render={(props) => <ProductPage {...props} />} url={url}/>
+                        <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct {...props} />} url={url}/>
+                        <Route exact path="/login">
+                            <Login isLogin = {this.isLogging.bind(this)} url={url}/>                              
+                        </Route>
+                        <Route exact path="/signup">
+                            <Signup isLogin = {this.isLogging.bind(this)} url={url}/>
+                        </Route>
+                        <Route exact path="/profile">
+                            <Profile isLogin = {this.isLogging.bind(this)} url={url}/>
+                        </Route>
+                        <Route exact path="/forgot">
+                            <Forgot isLogin = {this.isLogging.bind(this)} url={url}/>                              
+                        </Route>
                     </Switch>
                 </main>
                 <Footer/>

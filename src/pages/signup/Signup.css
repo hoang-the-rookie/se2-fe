@@ -3,3 +3,8 @@ label {
     font-weight: 400;
     margin-bottom: 4px;
 }
+
+.btn-register{
+    width: 9vw!important;
+    height: 6vh!important;
+}

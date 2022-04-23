@@ -1,5 +1,14 @@
 label {
     color: var(--secondary-text);
     font-weight: 400;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
+}
+
+.btn-confirm-container {
+    padding-top: 10px!important;
+}
+
+.primary-btn{
+    width: 9vw;
+    height: 3vh;
 }
