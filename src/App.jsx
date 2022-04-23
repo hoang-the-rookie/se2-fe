@@ -18,7 +18,7 @@ export default class App extends React.Component{
         this.state = {
             isLogin: false,
             checkLogin: false,
-            URL: "http://localhost:8080"//"https://be-project23421.herokuapp.com"
+            URL: "https://be-project23421.herokuapp.com"
         }
     }
 
