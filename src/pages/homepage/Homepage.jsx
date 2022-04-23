@@ -16,6 +16,7 @@ export default class Homepage extends React.Component{
         this.state = {
             user: {},
             all_products: [],
+            top_products: [],
             id: '',
             search: '',
             token: null,
@@ -37,12 +38,15 @@ export default class Homepage extends React.Component{
             return axios.get(`${this.props.url}/api/categories`)
         }).then(res =>{
             const categories = res.data;
-            this.setState({ categories }); 
+            const filter_products = this.state.all_products.sort((a, b) => b.price*b.quantity - a.price*a.quantity);
+            const top_products = filter_products.slice(0, 6);
+            this.setState({ categories, top_products }); 
         }).then(() => {
             this.setState({ isLoading: false });
         }).catch(err => {
             console.log(err);
-        })       
+        })  
+             
     }
 
     setSearchText(e){
@@ -58,6 +62,21 @@ export default class Homepage extends React.Component{
             isRedirect: true
         })
     }
+
+    ascPrice(e){
+        e.preventDefault();
+        const all_products = this.state.all_products;
+        const asc_products = all_products.sort((a, b) => a.price - b.price);
+        this.setState({ all_products: asc_products });
+    }
+
+    descPrice(e){
+        e.preventDefault();
+        const all_products = this.state.all_products;
+        const desc_products = all_products.sort((a, b) => b.price - a.price);
+        this.setState({ all_products: desc_products });
+    }
+
 
     render(){
         const user = this.state.user;
@@ -114,8 +133,12 @@ export default class Homepage extends React.Component{
                             </div>
                             </div>
 
-                            
-                            
+                            <div className="item_list">
+                            {this.state.top_products.map(product => (
+                                <Product key={product.productId} product={product}/>
+                            ))}
+                            </div>
+                                             
                         </div>
                     </div>
 
@@ -132,8 +155,8 @@ export default class Homepage extends React.Component{
                                                 <li> <p>Price<i className="fas fa-chevron-down"></i></p>
                                                     
                                                     <ul>
-                                                        <li><p>Ascending</p></li>
-                                                        <li><p>Descending</p></li>
+                                                        <li onClick={this.ascPrice.bind(this)}><p>Ascending</p></li>
+                                                        <li onClick={this.descPrice.bind(this)}><p>Descending</p></li>
                                                     </ul>
 
                                                 </li>
@@ -177,7 +200,7 @@ export default class Homepage extends React.Component{
                 </>
             :
                 <div className="loading">
-                        <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt=""/>
+                    <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt=""/>
                 </div>
             }
         </>
