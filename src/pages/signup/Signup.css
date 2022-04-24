@@ -8,3 +8,13 @@ label {
     width: 9vw!important;
     height: 6vh!important;
 }
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
+    top: 6vh!important;
+    width: 50%!important;
+}
+
+.form-control .text-info{
+    width: 60%!important;
+    transform: translateX(30%);
+}

@@ -28,8 +28,7 @@ export default class Homepage extends React.Component{
     componentDidMount(){
         if(this.state.token !== null){
             this.props.checkLogin(true);
-        }
-        console.log(`${this.props.url}/api/products`);   
+        } 
 
         axios.get(`${this.props.url}/api/products`).then(res => {
             const all_products = res.data;
@@ -75,6 +74,14 @@ export default class Homepage extends React.Component{
         const all_products = this.state.all_products;
         const desc_products = all_products.sort((a, b) => b.price - a.price);
         this.setState({ all_products: desc_products });
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            id: '',
+            category: '',
+            isRedirect: false
+        })
     }
 
 

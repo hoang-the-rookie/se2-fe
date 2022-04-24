@@ -1,5 +1,6 @@
 import React from 'react';
 import './Signup.css';
+import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -82,11 +83,11 @@ export default class Signup extends React.Component{
                                 <label className="text-gender mt-2 mb-2 d-block text-info">Gender</label>
                                 <span className="option-gender" data-type="radio" data-name="gender_wrapper" id="gender-female">
                                     <span className="option-female me-2">
-                                        <label className="text-female text-info cursor-pointer" for="female">Female</label>
+                                        <label className="text-female text-info cursor-pointer" htmlFor="female">Female</label>
                                         <input type="radio" className="input-female cursor-pointer" name="sex" value="1" id="female"/>
                                     </span>
                                     <span className="option-male">
-                                        <label className="text-male text-info cursor-pointer" for="male">Male</label>
+                                        <label className="text-male text-info cursor-pointer" htmlFor="male">Male</label>
                                         <input type="radio" className="input-male cursor-pointer" name="sex" value="2" id="male"/>
                                     </span>
                                 </span>
@@ -98,7 +99,7 @@ export default class Signup extends React.Component{
                     </div>
                     <div className="back-container text-center mt-2">
                         <div className="back-to-login">
-                            <a className="external_link " href=""> &lt; Back to Login </a>
+                            <Link to="/login" className="external_link"> &lt; Back to Login </Link>
                         </div>
                     </div>
                 </div>

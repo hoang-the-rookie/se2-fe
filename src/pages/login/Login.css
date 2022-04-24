@@ -20,3 +20,8 @@ label {
     font-weight: 400;
     margin-bottom: 4px;
 }
+
+.form-control .text-info{
+    width: 60%!important;
+    transform: translateX(30%);
+}

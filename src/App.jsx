@@ -19,6 +19,8 @@ export default class App extends React.Component{
             isLogin: false,
             checkLogin: false,
             URL: "https://be-project23421.herokuapp.com"
+            //"start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
+            //"build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
         }
     }
 
@@ -43,8 +45,8 @@ export default class App extends React.Component{
                         <Route exact path="/">
                             <HomePage checkLogin = {this.handleCallback} url={url}/>
                         </Route>
-                        <Route exact path="/product/:id" render={(props) => <ProductPage {...props} />} url={url}/>
-                        <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct {...props} />} url={url}/>
+                        <Route exact path="/product/:id" render={(props) => <ProductPage url={url} {...props} />} />
+                        <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct url={url} {...props} />} />
                         <Route exact path="/login">
                             <Login isLogin = {this.isLogging.bind(this)} url={url}/>                              
                         </Route>

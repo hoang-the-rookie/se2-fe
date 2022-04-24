@@ -21,7 +21,7 @@ export default class categoryProduct extends React.Component {
     }
 
     componentDidMount() { 
-        axios.get(`http://localhost:8080/api/category/${this.props.match.params.id}`).then(res => {
+        axios.get(`${this.props.url}/api/category/${this.props.match.params.id}`).then(res => {
             const categories = res.data;
             this.setState({categories});
         }).then(() =>{
