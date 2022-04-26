@@ -109,7 +109,7 @@ export default class Homepage extends React.Component{
                 !this.state.isLoading ?
                 <>
                     <section className="banner_main">                   
-                        <video id="video" controls autoPlay loop muted >
+                        <video id="video" autoPlay loop muted >
                             <source src={video} type="video/mp4"/>
                         </video>
 

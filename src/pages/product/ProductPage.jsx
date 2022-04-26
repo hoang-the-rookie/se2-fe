@@ -9,6 +9,7 @@ export default class ProductPage extends React.Component {
         this.state = {
             product: {},
             isRender: false,
+            id: -1,
             num: 1
         }
     }
@@ -16,7 +17,10 @@ export default class ProductPage extends React.Component {
     componentDidMount() {
         axios.get(`${this.props.url}/api/product/${this.props.match.params.id}`).then(res => {
             const product = res.data;
-            this.setState({product});
+            this.setState({
+                product,
+                id: product.productId
+            });
         }).then(() =>{
             this.setState({
                 isRender: true
@@ -28,24 +32,53 @@ export default class ProductPage extends React.Component {
     }
 
     decreaseNum() {
-
-        if(this.state.num > 1) {
-            this.setState({
-                num: this.state.num - 1
-            })
-        }   
+        axios.get(`${this.props.url}/api/cart/change-quantity/${this.state.id}/${this.state.num-1}`)
+        .then(res => {
+            if(res.status === 200){
+                if(this.state.num > 1) {
+                    this.setState({
+                        num: this.state.num - 1
+                    })
+                }else{
+                    window.alert("Quantity can not smaller than 1")
+                } 
+            }
+        }).catch((err) => {
+            window.alert(err)
+        })
+        
     }
 
     increaseNum() {
-        if(this.state.num <= this.state.product.quantity) {
-            this.setState({
-                num: this.state.num + 1
-            })
-        }  
+        axios.get(`${this.props.url}/api/cart/change-quantity/${this.state.id}/${this.state.num+1}`)
+        .then(res => {
+            if(res.status === 200){
+                if(this.state.num <= this.state.product.quantity) {
+                    this.setState({
+                        num: this.state.num + 1
+                    })
+                }else{
+                    window.alert(`Quantity can not bigger than ${this.state.product.quantity}`)
+                }
+            }
+        }).catch((err) => {
+            window.alert(err)
+        })        
     }
 
     formatNum(num) {
         return (num*1000).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    }
+
+    addToCart(){
+        axios.get(`${this.props.url}/api/cart/add-to-cart`, {
+            productId: this.state.id,
+            quantity: this.state.num
+        }).then(res => {
+            window.alert(res.data);
+        }).catch((err) => {
+            window.alert(err);
+        })
     }
 
     render() {
@@ -76,7 +109,7 @@ export default class ProductPage extends React.Component {
                             <br />
                             <p>{product.description}</p>
                         </div>
-
+                    
                         <div className="product-configuration">
                             <div className="cable-config">
                                 <span>Quantity: {product.quantity}</span>
@@ -92,7 +125,7 @@ export default class ProductPage extends React.Component {
                         <div className="product-price">
                             <span>{this.formatNum(price)} VND</span>
                             
-                            <a href="#" className="cart-btn">Add to cart</a>
+                            <button className="cart-btn" onClick={this.addToCart.bind(this)}>Add to cart</button>
                         </div>
                     </div> 
                 </div>

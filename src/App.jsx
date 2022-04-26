@@ -18,7 +18,9 @@ export default class App extends React.Component{
         this.state = {
             isLogin: false,
             checkLogin: false,
-            URL: "https://be-se2-merge.herokuapp.com",
+            username: "",
+            userId: "",
+            URL: "http://localhost:8080",
             token: null
             //"start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
             //"build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
@@ -33,12 +35,16 @@ export default class App extends React.Component{
         this.setState({isLogin: childData})
     }
 
+    checkLogging =(childData) => {
+        this.setState({checkLogin: childData})
+    }
+
     homeRedirect(){
         this.props.history.push("/");
     }
 
     setToken(token){
-        this.setState({token})
+        this.setState({token: "BEARER "+token})
         console.log(this.state.token);
     }
 
@@ -58,7 +64,7 @@ export default class App extends React.Component{
                         </Route>
                         <Route forceRefresh={true} exact path="/product/:id" render={(props) => <ProductPage url={url} token={token} {...props} />} />
                         <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct url={url} token={token} {...props} />} />
-                        <Route exact path="/login" render={(props) => <Login isLogin = {this.isLogging.bind(this)} url={url} token={token} setToken={this.setToken.bind(this)} {...props}/> } />
+                        <Route exact path="/login" render={(props) => <Login isLogin = {this.isLogging.bind(this)} checkLogin = {this.checkLogging.bind(this)} url={url} token={token} setToken={this.setToken.bind(this)} {...props}/> } />
                         <Route exact path="/signup">
                             <Signup isLogin = {this.isLogging.bind(this)} url={url} token={token}/>
                         </Route>

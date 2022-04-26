@@ -29,15 +29,12 @@ export default class Login extends React.Component{
             password: this.state.password
         }));
         axios.post(`${this.props.url}/api/auth/login`, {
-            method: "post",
-            data: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            }),
-            headers: { "Content-Type": "application/json" },  
+            username: this.state.username,
+            password: this.state.password
         }).then(res => {
             if(res.status === 200){
                 this.props.setToken(res.data.token);
+                this.props.checkLogin(true);
                 this.toHome();
             }
         }).catch(err => {

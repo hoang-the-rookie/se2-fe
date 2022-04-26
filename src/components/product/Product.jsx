@@ -17,7 +17,7 @@ export default class Product extends React.Component {
     }
 
     handleCLick(e) {
-        axios.get(`https://be-project23421.herokuapp.com/api/product/${this.props.product.productId}`).then(res => {
+        axios.get(`http://localhost:8080/api/product/${this.props.product.productId}`).then(res => {
             if(res.status === 200) {
                 this.setState({isRedirect: true});
             }

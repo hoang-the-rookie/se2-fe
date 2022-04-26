@@ -12,7 +12,7 @@ class Menu extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            cart: 0,
+            cart: <div>There is no items</div>,
             button: <>
                         <div className="register-btn">
                             <Link to="/signup" className="register-btn__control d-inline-block btn text-white fw-bold px-4">Register</Link>
@@ -21,9 +21,26 @@ class Menu extends React.Component{
                             <Link to="/login" className="login-btn__control d-inline-block btn fw-bold text-white px-4">Log In</Link>
                         </div>
                     </>,
+            cart_product: [],
             all_products: [],
-            name: null
+            name: null,
+            token: this.props.token
         };
+    }
+
+    componentDidMount(){
+        axios.get(`${this.props.url}/api/cart/view-cart`, {
+            headers:{
+                Authorization: this.state.token
+            }
+        }).then(res => {
+            this.setState({
+                cart_product: res.data
+            })
+            console.log(res.data);
+        }).catch((err) => {
+            window.alert(err);
+        })
     }
 
     showCart(){
@@ -35,45 +52,86 @@ class Menu extends React.Component{
                             <h3 className="user-utilities__cart--preview-title mx-2">List of products</h3>
                         </div>
 
-                        {/* <div className="user-utilities__cart--preview-list">
+                        <div className="user-utilities__cart--preview-list">
 
-                            {this.state.products.map((product) => (
-                                <div className="user-utilities__cart--preview-item d-flex px-2 py-2" key={product.id}>
-                                    <img src="" alt="" className="user-utilities__cart--preview-item__image col-3" width="100%" height="100%"/>
+                            {this.state.cart_product.map((product) => (
+                                <div class="cart-item d-flex p-3">
+                                    <div class="cart-item__img me-3">
+                                        <img src={product.imageName} alt={product.name} class=""/>
+                                    </div>
+                                    <div class="cart-item__text flex-grow-1 px-3">
+                                        <h3 class="">{product.name}</h3>
+                                        <p class="my-2 fw-bold fs-5">Price: <span class="ms-4" id="order_price">{product.price}</span></p>
+                                    
+                                        <p class="d-inline-block me-4">Quantity</p>
+                                        <div class="product-order-quantity__control border-normal corner-5">
+                                            <button class="product-order-quantity__control-minus" id="order_minus"  onClick={this.decreaseNum.bind(this)}>-</button>
+                                                <input type="text" value={this.product.quantity} size="5" class="product-order-quantity__number text-center" id="order_value"/>
+                                            <button class="product-order-quantity__control-add" id="order_add"  onClick={this.increaseNum.bind(this)}>+</button>
+                                        </div>
+                                        
+                                        <hr/>
+                                        <div className="user-utilities__cart--preview-total p-2 d-flex justify-content-between align-items-center cursor-default">
+                                            <div className=""> Total: 
 
-                                    <div className="user-utilities__cart--preview-item__content px-2 col-9">
-                                        <p className="user-utilities__cart--preview-item__name">Name: <span>{product.name}</span> </p>
-                                        <p className="user-utilities__cart--preview-item__extra d-flex justify-content-between">
-                                            <span className="user-utilities__cart--preview-item__price">${product.price}</span>
-                                            <span className="user-utilities__cart--preview-item__quantity px-3">Quantity: <span className="">{product.quantity}</span> </span>
-                                        </p>
+                                                <span className="">
+                                                    {this.state.cart_product.reduce((total, product) => 
+                                                        total + product.price * product.quantity,0
+                                                    )}
+                                                </span> 
+                                                
+                                            </div>
+
+                                            <div className="">
+                                                <button className="btn user-utilities__cart--preview-submit border-normal">Make order</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
 
-                        </div> */}
-
-                        <div className="user-utilities__cart--preview-total p-2 d-flex justify-content-between align-items-center cursor-default">
-                            {/* <div className=""> Total: 
-
-                                <span className="">
-                                    {this.state.products.reduce((total, product) => 
-                                        total + product.price * product.quantity,0
-                                    )}
-                                </span> 
-                                
-                            </div> */}
-
-                            <div className="">
-                                <button className="btn user-utilities__cart--preview-submit border-normal">Make order</button>
-                            </div>
                         </div>
                     </>
             })
     }
 
-    componentDidMount() {
+    decreaseNum(e) {
+        axios.get(`${this.props.url}/api/cart/change-quantity/${this.state.id}/${this.state.num-1}`)
+        .then(res => {
+            if(res.status === 200){
+                if(this.state.num > 1) {
+                    this.setState({
+                        num: this.state.num - 1
+                    })
+                }else{
+                    window.alert("Quantity can not smaller than 1")
+                } 
+            }
+        }).catch((err) => {
+            window.alert(err)
+        })
+        
+    }
 
+    increaseNum(e) {
+        axios.get(`${this.props.url}/api/cart/change-quantity/${this.state.id}/${this.state.num+1}`)
+        .then(res => {
+            if(res.status === 200){
+                if(this.state.num <= this.state.product.quantity) {
+                    this.setState({
+                        num: this.state.num + 1
+                    })
+                }else{
+                    window.alert(`Quantity can not bigger than ${this.state.product.quantity}`)
+                }
+            }
+        }).catch((err) => {
+            window.alert(err)
+        })        
+    }
+
+
+    componentDidMount() {
         axios.get(`${this.props.url}/api/products`).then(res => {
             const all_products = res.data;
             this.setState({ all_products });
@@ -82,7 +140,7 @@ class Menu extends React.Component{
         if (this.props.checkLogin){
             this.setState({
                 button: <>
-                    <div className="user-utilities__item user-utilities__cart border-0">
+                        <div className="user-utilities__item user-utilities__cart border-0">
                             <a href="/#" className="btn px-3 py-2 m-1 bg-white"><i className="fa-solid fa-cart-shopping cursor-pointer"></i></a>
         
                             <div className="user-utilities__item-extra user-utilities__cart--preview border-thin corner-5 py-3 px-2 cursor-default" onClick={this.showCart}>
@@ -93,7 +151,7 @@ class Menu extends React.Component{
                         </div>
         
                         <div className="user-utilities__item user-utilities__account">
-                            <Link to="" className=""><img src="" className="user-utilities__account--photo cursor-pointer"/></Link>
+                            <Link to="/profile" className=""><img src="https://be-pr2.000webhostapp.com//public_html/userImages/file-20220131-15-1ndq1m6.avif" className="user-utilities__account--photo cursor-pointer"/></Link>
         
                             <div className="user-utilities__item-extra user-utilities__account--info py-3 px-2 corner-5">
                                 <div className="user-utilities__account--info-preview pb-2 px-2 border-bottom cursor-default">
