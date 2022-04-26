@@ -18,7 +18,8 @@ export default class App extends React.Component{
         this.state = {
             isLogin: false,
             checkLogin: false,
-            URL: "https://be-project23421.herokuapp.com"
+            URL: "https://be-se2-merge.herokuapp.com",
+            token: null
             //"start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
             //"build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
         }
@@ -28,36 +29,44 @@ export default class App extends React.Component{
         this.setState({checkLogin: childData})
     }
 
-    isLogging(){
-        this.setState({isLogin: true})
+    isLogging= (childData) => {
+        this.setState({isLogin: childData})
+    }
+
+    homeRedirect(){
+        this.props.history.push("/");
+    }
+
+    setToken(token){
+        this.setState({token})
+        console.log(this.state.token);
     }
 
     render(){
         const url = this.state.URL;
-            return<>
-                {!this.state.isLogin ?
-                    <Menu checkLogin = {this.state.checkLogin} url={url}/>
-                :
-                    <></>
-                }
+        const token = this.state.token;
+            return<> 
                 <main>
+                    {!this.state.isLogin ?
+                        <Menu checkLogin={this.state.checkLogin} logout={this.handleCallback} url={url} token={token}/>
+                    :
+                        <></>
+                    }
                     <Switch>
                         <Route exact path="/">
                             <HomePage checkLogin = {this.handleCallback} url={url}/>
                         </Route>
-                        <Route exact path="/product/:id" render={(props) => <ProductPage url={url} {...props} />} />
-                        <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct url={url} {...props} />} />
-                        <Route exact path="/login">
-                            <Login isLogin = {this.isLogging.bind(this)} url={url}/>                              
-                        </Route>
+                        <Route forceRefresh={true} exact path="/product/:id" render={(props) => <ProductPage url={url} token={token} {...props} />} />
+                        <Route exact path="/category/:id/:name" render={(props) => <CategoryProduct url={url} token={token} {...props} />} />
+                        <Route exact path="/login" render={(props) => <Login isLogin = {this.isLogging.bind(this)} url={url} token={token} setToken={this.setToken.bind(this)} {...props}/> } />
                         <Route exact path="/signup">
-                            <Signup isLogin = {this.isLogging.bind(this)} url={url}/>
+                            <Signup isLogin = {this.isLogging.bind(this)} url={url} token={token}/>
                         </Route>
                         <Route exact path="/profile">
-                            <Profile isLogin = {this.isLogging.bind(this)} url={url}/>
+                            <Profile isLogin = {this.isLogging.bind(this)} url={url} token={token}/>
                         </Route>
                         <Route exact path="/forgot">
-                            <Forgot isLogin = {this.isLogging.bind(this)} url={url}/>                              
+                            <Forgot isLogin = {this.isLogging.bind(this)} url={url} token={token}/>                              
                         </Route>
                     </Switch>
                 </main>

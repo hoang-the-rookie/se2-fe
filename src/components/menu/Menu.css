@@ -12,6 +12,10 @@
     background-color: var(--primary-color);
 }
 
+.search-bar{
+    padding-left: 15vw;
+}
+
 .search-bar__input {
     width: 30vw;
 }
@@ -28,15 +32,7 @@
     border-top-right-radius: 20px;
 }
 
-.search-bar__input::before {
-    content: " ";
-    position: absolute;
-    left: 0;
-    top: 12.5%;
-    height: 75%;
-    border-left: .5px solid var(--border-color);
-    z-index: 1;
-}
+
 
 .search-bar__control--submit {
     border-right: none;
@@ -151,4 +147,119 @@
 .user-utilities__account--photo {
     max-height: 48px;
     max-width: 48px;
+}
+
+
+/* logo */
+.logo {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo svg,
+.logo div {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+}
+
+.logo svg {
+    fill: #fff;
+}
+
+.logo div {
+    width: 48px;
+    height: 48px;
+    margin: 6px;
+    border-radius: 20%;
+    transform: rotate(45deg);
+    mix-blend-mode: multiply;
+    animation: 2s cubic-bezier(0.66, -0.7, 0.27, 1.6) infinite;
+}
+
+.logo div:nth-child(1) {
+    background-color: #29ffff;
+    animation-name: rotate-1;
+}
+
+.logo div:nth-child(2) {
+    background-color: #ff65ff;
+    animation-name: rotate-2;
+}
+
+.logo div:nth-child(3) {
+    background-color: #ffc;
+    animation-name: rotate-3;
+}
+@-moz-keyframes rotate-1 {
+to {
+    transform: rotate(135deg);
+}
+}
+@-webkit-keyframes rotate-1 {
+to {
+    transform: rotate(135deg);
+}
+}
+@-o-keyframes rotate-1 {
+to {
+    transform: rotate(135deg);
+}
+}
+@keyframes rotate-1 {
+to {
+    transform: rotate(135deg);
+}
+}
+@-moz-keyframes rotate-2 {
+to {
+    transform: rotate(225deg);
+}
+}
+@-webkit-keyframes rotate-2 {
+to {
+    transform: rotate(225deg);
+}
+}
+@-o-keyframes rotate-2 {
+to {
+    transform: rotate(225deg);
+}
+}
+@keyframes rotate-2 {
+to {
+    transform: rotate(225deg);
+}
+}
+@-moz-keyframes rotate-3 {
+to {
+    transform: rotate(315deg);
+}
+}
+@-webkit-keyframes rotate-3 {
+to {
+    transform: rotate(315deg);
+}
+}
+@-o-keyframes rotate-3 {
+to {
+    transform: rotate(315deg);
+}
+}
+@keyframes rotate-3 {
+to {
+    transform: rotate(315deg);
+}
+}
+
+#combo-box-demo{
+    background-color: aliceblue;
+}
+
+.search-bar{
+    background-color: aliceblue;
+    padding-left: 0;
+    transform: translate(50%);
 }

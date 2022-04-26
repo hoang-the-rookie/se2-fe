@@ -1,18 +1,5 @@
-.login-body {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 100vh;
-}
-
-.container-card form {
-    background: rgba(213, 215, 222, 0.9);
-}
-
-.register-form {
-    margin-top: 160px;
-    margin-bottom: 24px;
+.form-control{
+    width: 20vw!important;
 }
 
 label {
@@ -21,7 +8,10 @@ label {
     margin-bottom: 4px;
 }
 
-.form-control .text-info{
-    width: 60%!important;
-    transform: translateX(30%);
+.back-to-login-btn{
+    transform: translate(0%);
+}
+
+.lb-ip {
+    transform: translate(0%)!important;
 }

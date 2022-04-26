@@ -27,8 +27,8 @@ export default class ProductPage extends React.Component {
         });
     }
 
-    decreaseNum(e) {
-        e.preventDefault();
+    decreaseNum() {
+
         if(this.state.num > 1) {
             this.setState({
                 num: this.state.num - 1
@@ -36,8 +36,7 @@ export default class ProductPage extends React.Component {
         }   
     }
 
-    increaseNum(e) {
-        e.preventDefault();
+    increaseNum() {
         if(this.state.num <= this.state.product.quantity) {
             this.setState({
                 num: this.state.num + 1
@@ -53,6 +52,7 @@ export default class ProductPage extends React.Component {
         const product = this.state.product;
         const price = product.price;
         const category = product.category;
+        const num = this.state.num;
 
         return(
             <>
@@ -85,7 +85,7 @@ export default class ProductPage extends React.Component {
                         </div>
                         <div className="number">
                             <button className="minus" onClick={this.decreaseNum.bind(this)}>&#45;</button>
-                            <input type="text" defaultValue={this.state.num}/>
+                            <input type="text" value={num}/>
                             <button className="plus" onClick={this.increaseNum.bind(this)}>&#43;</button>
                         </div>
                         <br />
